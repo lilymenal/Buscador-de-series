@@ -1,4 +1,18 @@
-.temporal {
-  font-size: 20px;
-  color: rgb(23, 92, 92);
+.seriesContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  text-align: center;
+}
+.favorites {
+  width: 40%;
+  background-color: crimson;
+}
+.series {
+  width: 60%;
+}
+
+.listClass {
+  list-style-type: none;
 }
