@@ -1,4 +1,5 @@
-Pedido: Crear una página web para marcar y desmarcar series de un listado de serie.
+Pedido: Crear una página web para marcar, desmarcar series de un listado de serie y guardarla
+en el local Storage.
 
 0. Hacer estructura de html:
 <h1> Buscador de series </h1>

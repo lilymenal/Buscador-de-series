@@ -1,3 +1,16 @@
+.container {
+  background-color: darkcyan;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+.h1 {
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.searchButton {
+  cursor: pointer;
+}
 .seriesContainer {
   width: 100%;
   display: flex;
@@ -5,14 +18,22 @@
   justify-content: center;
   text-align: center;
 }
+
+.checked {
+  cursor: pointer;
+}
 .favorites {
   width: 40%;
-  background-color: crimson;
+  /*background-color: crimson;*/
 }
 .series {
-  width: 60%;
+  width: 100%;
 }
 
 .listClass {
   list-style-type: none;
+}
+
+.listFavoriteClass {
+  padding-left: 10px;
 }
