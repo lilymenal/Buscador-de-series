@@ -21,7 +21,7 @@ function callToApi(searchValue) {
         });
 }
 
-// paint
+// paint series
 
 function paintSeries(characteres) {
     let htmlCode = '';
@@ -69,41 +69,53 @@ function listenFavoritesSeries() {
             }
 }
 
+// handle favorites
 function handleFavorites(ev) {
-    let listen = ev.currentTarget;
-    console.log ('escucha', listen.id);
     
+    let listen = ev.currentTarget;
+    //console.log ('escucha', listen.id);   
     const data = seriesShow.find (select => (select.show.id) = parseInt(listen.id));
-    console.log (data);
-    favoritesSeries.push (data);
-        //htmlFavoriteCode += `<ul class = listFavoriteClass>`;     
-            for (const favoriteSerie of favoritesSeries) {
-                console.log (favoriteSerie);
-            }
-                //console.log (itemsShow.name);
-                //console.log (itemsShow.image);
-                /*htmlFavoriteCode += '<li class="">';
-                htmlFavoriteCode += `<button class="checked js-clicked id="${itemsShow.id}">`;
-                const imageShow = [itemsShow.image];
-                for (const image  of imageShow ) {
-                    //console.log(image.medium)
-                
-                //if (imageShow == null){
-                    htmlFavoriteCode += `<img class="imagen" src="https://via.placeholder.com/210x295/ffffff/666666/?
+    //console.log (data);
+    favoritesSeries.push (data); 
+        /*if (data === 'undefined'){
+            favoritesSeries.splice(data, 0);
+        }else{  */    
+            let htmlCode = '';
+            htmlCode += '<h2 class="h2">Mis series favoritas</h2>';
+            htmlCode += '<button>reset</button>';                             
+            htmlCode += `<ul class = listClass>`;
+            for (let index = 0; index < favoritesSeries.length; index++) {
+                const elements = favoritesSeries[index];                       
+                for (const favoriteSerie of favoritesSeries) {
+                    //console.log (favoriteSerie); 
+                    htmlCode += '<li class="">';
+                    htmlCode += `<button class="checked color js-clicked" id="${favoriteSerie.id}">`;
+                    const showElement = favoriteSerie.show;
+                    //console.log(showElement);
+                    const imageShow = showElement.image;
+                    //console.log(imageShow);
+                    if (imageShow === null){
+                        htmlCode += `<img class="imagen" src="https://via.placeholder.com/210x295/ffffff/666666/?
                     text=TV">`;
-                    /*} else {
-                        htmlCode += `<img class="imagen" src="./logo-adalab.png">`;
-                    }  
-                }                              
-                htmlFavoriteCode += `<p class="seriesname"> ${itemsShow.name}</p>`;   
-                htmlFavoriteCode += '</buton>';    
-                htmlFavoriteCode += '</li>';
+                    } else {
+                        htmlCode += `<img class="imagen" src="${imageShow.medium}">`; 
+                    }                                
+                    htmlCode += `<p class="seriesname"> ${favoriteSerie.show.name}</p>`;   
+                    htmlCode += '</buton>';    
+                    htmlCode += '</li>';
+                }
             }
-            }
-            htmlFavoriteCode += `</ul>`;*/
-
-    //favoriteElement.innerHTML = htmlFavoriteCode;*/
+            htmlCode += `</ul>`;
+        //}
+        favoriteElement.innerHTML = htmlCode;
 }
+
+// resaltando favoritas
+/*
+function isFavoriteSerie(favoriteSerie) {
+    console.log(favoriteSerie)
+    return ;
+}*/
  
  //local storage
 
@@ -122,5 +134,14 @@ function handleFavorites(ev) {
     }
  };
 
+ //reset
+/*
+ function handleResetFavorites() {
+    const paletteInput1 = document.querySelector(".js-input1");
+    const palettetoReset = document.querySelector(".js-palette:checked");
+    palettetoReset.checked = false;
+    paletteInput1.checked = true;
+  }
+*/
  // start app: search by friends
  getFromLocalStorage();

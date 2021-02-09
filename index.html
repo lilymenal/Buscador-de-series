@@ -9,19 +9,19 @@
   </head>
   <body class="container">
     <h1 class="h1">Buscador de series</h1>
-    <p>
-      Encuentra tus series en nuestra base de datos, buscando por el nombre del
-      programa.
+    <p class="paragraph">
+      Encuentra tus series en nuestra base de datos buscando por el nombre del
+      programa, y selecciona tus favoritas dando click sobre ellas.
     </p>
-    <input
-      class="js-text"
-      type="text"
-      placeholder="escribe el nombre de la serie"
-      name="search"
-    />
-    <button class="js-button searchButton">search</button>
-    <h2>Mis series favoritas</h2>
-    <button>reset</button>
+    <div class="searchContainer">
+      <input
+        class="js-text"
+        type="text"
+        placeholder="escribe el nombre de la serie"
+        name="search"
+      />
+      <button class="js-button searchButton">search</button>
+    </div>
     <div class="seriesContainer">
       <div class="favorites hidden js-favorites"></div>
       <div class="series js-series"></div>

@@ -1,4 +1,5 @@
 .container {
+  width: 100%;
   background-color: darkcyan;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
@@ -6,6 +7,18 @@
 .h1 {
   text-transform: uppercase;
   text-align: center;
+}
+.paragraph {
+  text-align: center;
+}
+
+.searchContainer {
+  padding-bottom: 15px;
+}
+
+.h2 {
+  text-align: center;
+  color: rgba(33, 28, 34, 0.548);
 }
 
 .searchButton {
@@ -15,25 +28,47 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  text-align: center;
 }
 
 .checked {
+  /*width: min-content;*/
   cursor: pointer;
 }
 .favorites {
-  width: 40%;
-  /*background-color: crimson;*/
+  /*width: 100%;*/
+  /*background-color: rgb(188, 211, 211);*/
+  box-shadow: 0 1px 10px 0 #664b4b, 0 1px 3px 0 rgba(0, 0, 0, 0.35);
 }
-.series {
+/*.series {
   width: 100%;
-}
+}*/
 
 .listClass {
+  /*width: 60%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;*/
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   list-style-type: none;
+  padding-left: 2px;
+  object-fit: cover;
+  object-position: center center;
 }
 
 .listFavoriteClass {
-  padding-left: 10px;
+  /*width: 60%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;*/
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  /*padding-left: 1px;*/
+  object-fit: cover;
+  object-position: center center;
+}
+.color {
+  border-color: deeppink;
 }
