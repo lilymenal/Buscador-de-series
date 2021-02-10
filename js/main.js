@@ -102,12 +102,6 @@ let favoritesSeries = [];
                 htmlCode += `<ul class = listClass js-listFavorites>`;
                     for (const favoriteSerie of favoritesSeries) {
                         let resetFavorite = "";
-                        
-                        /*if (isFavoriteSerie(itemsShow.id)){
-                            resetFavorite = "hidde";
-                        } else {
-                            resetFavorite = "";
-                        }*/
                         htmlCode += '<li class="changes">';
                         htmlCode += `<button class="checked js-clicked" id="${favoriteSerie.id}">`;
                         const showElement = favoriteSerie.show;
@@ -118,11 +112,11 @@ let favoritesSeries = [];
                         } else {
                             htmlCode += `<img class="imagen" src="${imageShow.medium}">`; 
                         }                                
-                        htmlCode += `<p class="seriesname"> ${favoriteSerie.show.name}</p><button class="  js-reset">reset</button>`;   
+                        htmlCode += `<p class="seriesname"> ${favoriteSerie.show.name}</p><button class="js-reset">X</button>`;   
                         htmlCode += '</buton>';    
                         htmlCode += '</li>';
                     }
-                htmlCode += `</ul>`;    
+                htmlCode += `</ul><button class="js-reset">Borra tus favoritos</button>`;    
 
                 favoriteElement.innerHTML = htmlCode;
     }

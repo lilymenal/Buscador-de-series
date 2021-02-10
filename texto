@@ -10,13 +10,15 @@ en el local Storage.
 
 1. Traer la información del API.
 2. Escuchar información de la usuaria para seleccionar serie.
-    usuaria introduce dato para seleccionar y clica en el botón.
-4. Pintar series seleccionadas por la usuaria (primer li).
-    Estructura html
-5. Escuchar información de series seleccionadas por la usuaria.
-    usuria selecciona la/s series que quiera
-6. Pintar series series seleccionadas como favoritas (segundo li).
-    estructura html
-7. Hacer local Storage.
+    2.1 Usuaria introduce dato para seleccionar y clica en el botón.
+3. Pintar series seleccionadas por la usuaria (primer li).
+    3.1 Estructura html
+4. Escuchar información de series seleccionadas por la usuaria.
+    4.1 Usuaria selecciona la/s series que quiera
+5. Pintar series series seleccionadas como favoritas (segundo li).
+    5.1 Estructura html
+6. Hacer local Storage.
+7. Hacer reseteo global.
+8. Hacer reseteo parcial.
 
 
