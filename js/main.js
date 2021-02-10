@@ -48,7 +48,7 @@ function paintSeries(characteres) {
             htmlCode += `</ul>`;
             seriesElement.innerHTML = htmlCode;
             
-            listenFavoritesSeries();
+            handleSeries();
   }
 
  //search series
@@ -60,29 +60,34 @@ function handleSearch() {
 buttonElement.addEventListener('click',handleSearch);
 
 
-//check favorites
+//listen series
 
-function listenFavoritesSeries() {
+function handleSeries() {
     const clickedElements = document.querySelectorAll('.js-clicked');
             for (const clickedElement of clickedElements) {
                 clickedElement.addEventListener('click',handleFavorites);
-                console.log (clickedElement);
             }
 }
 
 // handle favorites
 function handleFavorites(ev) {
-    let listen = ev.currentTarget;
-    //console.log ('escucha', listen.id);   
+    let listen = ev.currentTarget;   
     const data = seriesShow.find (select => (select.show.id) = parseInt(listen.id));
-    //console.log (data);
     favoritesSeries.push (data); 
-            let htmlCode = '';
+        
+    paintFavorites();
+    handleResetFavorites();
+}
+
+// paint favorites
+
+function paintFavorites() {
+    let htmlCode = '';
             htmlCode += '<h2 class="h2">Mis series favoritas</h2>';
             //htmlCode += '<button class="js-reset">reset</button>';                             
             htmlCode += `<ul class = listClass js-listFavorites>`;
             /*for (let index = 0; index < favoritesSeries.length; index++) {
-                const elements = favoritesSeries[index]; */                      
+                const elements = favoritesSeries[index]; */                   
                 for (const favoriteSerie of favoritesSeries) {
                     //console.log (favoriteSerie); 
                     htmlCode += '<li class="">';
@@ -103,20 +108,44 @@ function handleFavorites(ev) {
                 }
             //}
             htmlCode += `</ul>`;    
+
             favoriteElement.innerHTML = htmlCode;
-        
-        handleResetFavorites();
+            //isFavoriteSerie();
 }
 
 // resaltando favoritas
-/*
-function isFavoriteSerie(favoriteSerie) {
-    console.log(favoriteSerie)
-    return ;
-}*/
+
+function isFavoriteSerie(ev) {
+    console.log ('me han clicado', ev.currentTarget);
+    /*const favoriteFound = favoritesSeries.find(favoriteSerie =>{
+        return favoriteSerie.id === seriesShow.id;
+    });
+    if (favoriteFound === undefined) {
+        return false;
+    }else{
+        return true;
+    }*/
+}
  
  //local storage
 
+ function setInLocalStorage() {
+     const stringSeries = JSON.stringify(seriesShow);
+    localStorage.setItem ('searchvalue', stringSeries);
+  };
+
+  function getFromLocalStorage() {
+     const localStorageSeries= localStorage.getItem ('searchvalue'); 
+     if (localStorageSeries === null){
+         callToApi ('friends');
+         searchElement.value = 'friends';
+     } else {
+         const arraySeries = JSON.parse(localStorageSeries);
+         seriesShow = arraySeries;
+         paintFavorites();
+    }
+  };
+/*
  function setInLocalStorage(searchSeries) {
    localStorage.setItem ('searchvalue', searchSeries);
  };
@@ -130,7 +159,7 @@ function isFavoriteSerie(favoriteSerie) {
         callToApi(searchText);
         searchElement.value = searchText;
     }
- };
+ };*/
 
  //reset
  function handleResetFavorites() {
