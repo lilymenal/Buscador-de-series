@@ -5,6 +5,8 @@ const seriesElement = document.querySelector('.js-series');
 const buttonElement = document.querySelector('.js-button');
 const searchElement = document.querySelector('.js-text');
 const favoriteElement = document.querySelector('.js-favorites');
+const resetFavoriteElement = document.querySelector('.js-hidden');
+const listenResetElement = document.querySelector('.js-reset');
 
 let seriesShow = [];
 let favoritesSeries = [];
@@ -17,7 +19,6 @@ function callToApi(searchValue) {
       .then(data => {
           seriesShow = data;
           paintSeries(seriesShow);
-          //console.log (seriesShow);
         });
 }
 
@@ -65,27 +66,23 @@ function listenFavoritesSeries() {
     const clickedElements = document.querySelectorAll('.js-clicked');
             for (const clickedElement of clickedElements) {
                 clickedElement.addEventListener('click',handleFavorites);
-                //console.log (clickedElement);
+                console.log (clickedElement);
             }
 }
 
 // handle favorites
 function handleFavorites(ev) {
-    
     let listen = ev.currentTarget;
     //console.log ('escucha', listen.id);   
     const data = seriesShow.find (select => (select.show.id) = parseInt(listen.id));
     //console.log (data);
     favoritesSeries.push (data); 
-        /*if (data === 'undefined'){
-            favoritesSeries.splice(data, 0);
-        }else{  */    
             let htmlCode = '';
             htmlCode += '<h2 class="h2">Mis series favoritas</h2>';
-            htmlCode += '<button>reset</button>';                             
-            htmlCode += `<ul class = listClass>`;
-            for (let index = 0; index < favoritesSeries.length; index++) {
-                const elements = favoritesSeries[index];                       
+            //htmlCode += '<button class="js-reset">reset</button>';                             
+            htmlCode += `<ul class = listClass js-listFavorites>`;
+            /*for (let index = 0; index < favoritesSeries.length; index++) {
+                const elements = favoritesSeries[index]; */                      
                 for (const favoriteSerie of favoritesSeries) {
                     //console.log (favoriteSerie); 
                     htmlCode += '<li class="">';
@@ -100,14 +97,15 @@ function handleFavorites(ev) {
                     } else {
                         htmlCode += `<img class="imagen" src="${imageShow.medium}">`; 
                     }                                
-                    htmlCode += `<p class="seriesname"> ${favoriteSerie.show.name}</p>`;   
+                    htmlCode += `<p class="seriesname"> ${favoriteSerie.show.name}</p><button class="js-reset">reset</button>`;   
                     htmlCode += '</buton>';    
                     htmlCode += '</li>';
                 }
-            }
-            htmlCode += `</ul>`;
-        //}
-        favoriteElement.innerHTML = htmlCode;
+            //}
+            htmlCode += `</ul>`;    
+            favoriteElement.innerHTML = htmlCode;
+        
+        handleResetFavorites();
 }
 
 // resaltando favoritas
@@ -135,13 +133,13 @@ function isFavoriteSerie(favoriteSerie) {
  };
 
  //reset
-/*
  function handleResetFavorites() {
-    const paletteInput1 = document.querySelector(".js-input1");
-    const palettetoReset = document.querySelector(".js-palette:checked");
-    palettetoReset.checked = false;
-    paletteInput1.checked = true;
-  }
-*/
+    //listenResetElement.innerHTML= '';
+console.log ('borra favoritas...')
+    
+ }
+ resetFavoriteElement.addEventListener('click', handleResetFavorites);
+
+   
  // start app: search by friends
  getFromLocalStorage();
