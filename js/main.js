@@ -30,20 +30,28 @@ function paintSeries(characteres) {
             for (let index = 0; index < characteres.length; index++) {
                 const elements = characteres[index];
                 const showElement = [elements.show];       
-            for (let itemsShow of showElement) {
-                htmlCode += '<li class="">';
-                htmlCode += `<button class="checked js-clicked" id="${itemsShow.id}">`;
-                const imageShow = itemsShow.image;
-                if (imageShow === null){
-                    htmlCode += `<img class="imagen" src="https://via.placeholder.com/210x295/ffffff/666666/?
-                    text=TV">`;
+                for (let itemsShow of showElement) {
+                    let borderColor = "";
+                    debugger;
+                    if (isFavoriteSerie(itemsShow.id)){
+                        borderColor = "color";
                     } else {
-                        htmlCode += `<img class="imagen" src="${imageShow.medium}">`;
-                    }                                
-                htmlCode += `<p class="seriesname"> ${itemsShow.name}</p>`;   
-                htmlCode += '</buton>';    
-                htmlCode += '</li>';
-            }
+                        borderColor = "";
+                    }
+                    console.log (borderColor);
+                    htmlCode += '<li class="">';
+                    htmlCode += `<button class="checked js-clicked ${borderColor}" id="${itemsShow.id}">`;
+                    const imageShow = itemsShow.image;
+                    if (imageShow === null){
+                        htmlCode += `<img class="imagen" src="https://via.placeholder.com/210x295/ffffff/666666/?
+                        text=TV">`;
+                        } else {
+                            htmlCode += `<img class="imagen" src="${imageShow.medium}">`;
+                        }                                
+                    htmlCode += `<p class="seriesname"> ${itemsShow.name}</p>`;   
+                    htmlCode += '</buton>';    
+                    htmlCode += '</li>';
+                }
             }
             htmlCode += `</ul>`;
             seriesElement.innerHTML = htmlCode;
@@ -71,12 +79,21 @@ function handleSeries() {
 
 // handle favorites
 function handleFavorites(ev) {
-    let listen = ev.currentTarget;   
-    const data = seriesShow.find (select => (select.show.id) = parseInt(listen.id));
-    favoritesSeries.push (data); 
-        
+    let listen = parseInt(ev.currentTarget.id);   
+    const data = seriesShow.find (select => select.show.id === listen);
+    const isFavoriteSerie = favoritesSeries.findIndex (fav => fav.show.id === data.show.id);
+    //console.log(isFavoriteSerie);
+    if (isFavoriteSerie === -1){
+        favoritesSeries.push (data); 
+    } else {
+        favoritesSeries.splice (isFavoriteSerie, 1);
+    }
+    
+       
     paintFavorites();
     handleResetFavorites();
+    paintSeries(seriesShow);
+    setInLocalStorage();
 }
 
 // paint favorites
@@ -91,7 +108,7 @@ function paintFavorites() {
                 for (const favoriteSerie of favoritesSeries) {
                     //console.log (favoriteSerie); 
                     htmlCode += '<li class="">';
-                    htmlCode += `<button class="checked color js-clicked" id="${favoriteSerie.id}">`;
+                    htmlCode += `<button class="checked js-clicked" id="${favoriteSerie.id}">`;
                     const showElement = favoriteSerie.show;
                     //console.log(showElement);
                     const imageShow = showElement.image;
@@ -115,22 +132,22 @@ function paintFavorites() {
 
 // resaltando favoritas
 
-function isFavoriteSerie(ev) {
-    console.log ('me han clicado', ev.currentTarget);
-    /*const favoriteFound = favoritesSeries.find(favoriteSerie =>{
-        return favoriteSerie.id === seriesShow.id;
+function isFavoriteSerie(serieId) {
+    const favoriteFound = favoritesSeries.find(favoriteSerie =>{
+        return favoriteSerie.show.id === serieId;
     });
+    console.log (favoriteFound);
     if (favoriteFound === undefined) {
         return false;
     }else{
         return true;
-    }*/
+    }
 }
  
  //local storage
 
  function setInLocalStorage() {
-     const stringSeries = JSON.stringify(seriesShow);
+     const stringSeries = JSON.stringify(favoritesSeries);
     localStorage.setItem ('searchvalue', stringSeries);
   };
 
@@ -141,7 +158,7 @@ function isFavoriteSerie(ev) {
          searchElement.value = 'friends';
      } else {
          const arraySeries = JSON.parse(localStorageSeries);
-         seriesShow = arraySeries;
+         favoritesSeries = arraySeries;
          paintFavorites();
     }
   };
