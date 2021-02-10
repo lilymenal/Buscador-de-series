@@ -40,7 +40,6 @@ let favoritesSeries = [];
                             borderColor = "";
                             seriesname = "";
                         }
-                        console.log (borderColor);
                         htmlCode += `<li class="">`;
                         htmlCode += `<button class="checked js-clicked ${borderColor} " id="${itemsShow.id}">`;
                         const imageShow = itemsShow.image;
@@ -90,7 +89,7 @@ let favoritesSeries = [];
             favoritesSeries.splice (isFavoriteSerie, 1);
         }       
         paintFavorites();
-        handleResetFavorites();
+        //handleResetFavorites();
         paintSeries(seriesShow);
         setInLocalStorage();
     }
@@ -102,6 +101,13 @@ let favoritesSeries = [];
                 htmlCode += '<h2 class="h2">Mis series favoritas</h2>';
                 htmlCode += `<ul class = listClass js-listFavorites>`;
                     for (const favoriteSerie of favoritesSeries) {
+                        let resetFavorite = "";
+                        
+                        /*if (isFavoriteSerie(itemsShow.id)){
+                            resetFavorite = "hidde";
+                        } else {
+                            resetFavorite = "";
+                        }*/
                         htmlCode += '<li class="changes">';
                         htmlCode += `<button class="checked js-clicked" id="${favoriteSerie.id}">`;
                         const showElement = favoriteSerie.show;
@@ -112,7 +118,7 @@ let favoritesSeries = [];
                         } else {
                             htmlCode += `<img class="imagen" src="${imageShow.medium}">`; 
                         }                                
-                        htmlCode += `<p class="seriesname"> ${favoriteSerie.show.name}</p><button class="js-reset">reset</button>`;   
+                        htmlCode += `<p class="seriesname"> ${favoriteSerie.show.name}</p><button class="  js-reset">reset</button>`;   
                         htmlCode += '</buton>';    
                         htmlCode += '</li>';
                     }
@@ -127,7 +133,6 @@ let favoritesSeries = [];
         const favoriteFound = favoritesSeries.find(favoriteSerie =>{
             return favoriteSerie.show.id === serieId;
         });
-        console.log (favoriteFound);
         if (favoriteFound === undefined) {
             return false;
         }else{
@@ -145,6 +150,7 @@ let favoritesSeries = [];
     function getFromLocalStorage() {
         const localStorageSeries= localStorage.getItem ('searchvalue'); 
         if (localStorageSeries === null){
+            callToApi ('modern family');
         } else {
             const arraySeries = JSON.parse(localStorageSeries);
             favoritesSeries = arraySeries;
@@ -153,12 +159,12 @@ let favoritesSeries = [];
     };
 
  //reset
- function handleResetFavorites() {
+/* function handleResetFavorites() {
     //listenResetElement.innerHTML= '';
 console.log ('borra favoritas...')
     
  }
- resetFavoriteElement.addEventListener('click', handleResetFavorites);
+ resetFavoriteElement.addEventListener('click', handleResetFavorites);*/
 
    
  // start app: search by friends

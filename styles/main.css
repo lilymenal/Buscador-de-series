@@ -1,5 +1,6 @@
 .container {
   width: 100%;
+  overflow-x: hidden;
   background-color: darkcyan;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
@@ -18,7 +19,7 @@
 
 .h2 {
   text-align: center;
-  color: rgba(33, 28, 34, 0.548);
+  color: black;
 }
 
 .searchButton {
@@ -31,13 +32,17 @@
 }
 
 .checked {
-  /*width: min-content;*/
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
   cursor: pointer;
 }
 .favorites {
   /*width: 100%;*/
   /*background-color: rgb(188, 211, 211);*/
-  box-shadow: 0 1px 10px 0 #664b4b, 0 1px 3px 0 rgba(0, 0, 0, 0.35);
+  box-shadow: 0 2px 20px 0 #160b0b, 0 1px 3px 0 rgba(0, 0, 0, 0.35);
 }
 /*.series {
   width: 100%;
@@ -69,10 +74,20 @@
   object-fit: cover;
   object-position: center center;
 }
+
+.imagen {
+  width: 80%;
+  height: 80%;
+}
+
 .background {
   background-color: black;
 }
 
 .color {
   color: blanchedalmond;
+}
+
+.hidde: {
+  display: none;
 }
