@@ -13,172 +13,144 @@ let favoritesSeries = [];
 
 // api
 
-function callToApi(searchValue) {
-    fetch('http://api.tvmaze.com/search/shows?q='+ searchValue)
-      .then(response => response.json())
-      .then(data => {
-          seriesShow = data;
-          paintSeries(seriesShow);
-        });
-}
+    function callToApi(searchValue) {
+        fetch('http://api.tvmaze.com/search/shows?q='+ searchValue)
+        .then(response => response.json())
+        .then(data => {
+            seriesShow = data;
+            paintSeries(seriesShow);
+            });
+    }
 
 // paint series
 
-function paintSeries(characteres) {
-    let htmlCode = '';
-            htmlCode += `<ul class = listClass>`;
-            for (let index = 0; index < characteres.length; index++) {
-                const elements = characteres[index];
-                const showElement = [elements.show];       
-                for (let itemsShow of showElement) {
-                    let borderColor = "";
-                    let seriesname = "";
-                    if (isFavoriteSerie(itemsShow.id)){
-                        borderColor = "background";
-                        seriesname = "color";
-                    } else {
-                        borderColor = "";
-                        seriesname = "";
-                    }
-                    console.log (borderColor);
-                    htmlCode += `<li class="">`;
-                    htmlCode += `<button class="checked js-clicked ${borderColor} " id="${itemsShow.id}">`;
-                    const imageShow = itemsShow.image;
-                    if (imageShow === null){
-                        htmlCode += `<img class="imagen" src="https://via.placeholder.com/210x295/ffffff/666666/?
-                        text=TV">`;
+    function paintSeries(characteres) {
+        let htmlCode = '';
+                htmlCode += `<ul class = listClass>`;
+                for (let index = 0; index < characteres.length; index++) {
+                    const elements = characteres[index];
+                    const showElement = [elements.show];       
+                    for (let itemsShow of showElement) {
+                        let borderColor = "";
+                        let seriesname = "";
+                        if (isFavoriteSerie(itemsShow.id)){
+                            borderColor = "background";
+                            seriesname = "color";
                         } else {
-                            htmlCode += `<img class="imagen" src="${imageShow.medium}">`;
-                        }                                
-                    htmlCode += `<p class="${seriesname}"> ${itemsShow.name}</p>`;   
-                    htmlCode += '</buton>';    
-                    htmlCode += '</li>';
+                            borderColor = "";
+                            seriesname = "";
+                        }
+                        console.log (borderColor);
+                        htmlCode += `<li class="">`;
+                        htmlCode += `<button class="checked js-clicked ${borderColor} " id="${itemsShow.id}">`;
+                        const imageShow = itemsShow.image;
+                        if (imageShow === null){
+                            htmlCode += `<img class="imagen" src="https://via.placeholder.com/210x295/ffffff/666666/?
+                            text=TV">`;
+                            } else {
+                                htmlCode += `<img class="imagen" src="${imageShow.medium}">`;
+                            }                                
+                        htmlCode += `<p class="${seriesname}"> ${itemsShow.name}</p>`;   
+                        htmlCode += '</buton>';    
+                        htmlCode += '</li>';
+                    }
                 }
-            }
-            htmlCode += `</ul>`;
-            seriesElement.innerHTML = htmlCode;
-            
-            handleSeries();
-  }
+                htmlCode += `</ul>`;
+                seriesElement.innerHTML = htmlCode;
+                
+                handleSeries();
+    }
 
  //search series
 
-function handleSearch() {
-        callToApi(searchElement.value);
-        setInLocalStorage(searchElement.value);
-}
-buttonElement.addEventListener('click',handleSearch);
+    function handleSearch() {
+            callToApi(searchElement.value);
+            setInLocalStorage(searchElement.value);
+    }
+    buttonElement.addEventListener('click',handleSearch);
 
 
 //listen series
 
-function handleSeries() {
-    const clickedElements = document.querySelectorAll('.js-clicked');
-            for (const clickedElement of clickedElements) {
-                clickedElement.addEventListener('click',handleFavorites);
-            }
-}
+    function handleSeries() {
+        const clickedElements = document.querySelectorAll('.js-clicked');
+                for (const clickedElement of clickedElements) {
+                    clickedElement.addEventListener('click',handleFavorites);
+                }
+    }
 
 // handle favorites
-function handleFavorites(ev) {
-    let listen = parseInt(ev.currentTarget.id);   
-    const data = seriesShow.find (select => select.show.id === listen);
-    const isFavoriteSerie = favoritesSeries.findIndex (fav => fav.show.id === data.show.id);
-    //console.log(isFavoriteSerie);
-    if (isFavoriteSerie === -1){
-        favoritesSeries.push (data); 
-    } else {
-        favoritesSeries.splice (isFavoriteSerie, 1);
+    function handleFavorites(ev) {
+        let listen = parseInt(ev.currentTarget.id);   
+        const data = seriesShow.find (select => select.show.id === listen);
+        const isFavoriteSerie = favoritesSeries.findIndex (fav => fav.show.id === data.show.id);
+        if (isFavoriteSerie === -1){
+            favoritesSeries.push (data); 
+        } else {
+            favoritesSeries.splice (isFavoriteSerie, 1);
+        }       
+        paintFavorites();
+        handleResetFavorites();
+        paintSeries(seriesShow);
+        setInLocalStorage();
     }
-    
-       
-    paintFavorites();
-    handleResetFavorites();
-    paintSeries(seriesShow);
-    setInLocalStorage();
-}
 
 // paint favorites
 
-function paintFavorites() {
-    let htmlCode = '';
-            htmlCode += '<h2 class="h2">Mis series favoritas</h2>';
-            //htmlCode += '<button class="js-reset">reset</button>';                             
-            htmlCode += `<ul class = listClass js-listFavorites>`;
-            /*for (let index = 0; index < favoritesSeries.length; index++) {
-                const elements = favoritesSeries[index]; */                   
-                for (const favoriteSerie of favoritesSeries) {
-                    //console.log (favoriteSerie); 
-                    htmlCode += '<li class="changes">';
-                    htmlCode += `<button class="checked js-clicked" id="${favoriteSerie.id}">`;
-                    const showElement = favoriteSerie.show;
-                    //console.log(showElement);
-                    const imageShow = showElement.image;
-                    //console.log(imageShow);
-                    if (imageShow === null){
-                        htmlCode += `<img class="imagen" src="https://via.placeholder.com/210x295/ffffff/666666/?
-                    text=TV">`;
-                    } else {
-                        htmlCode += `<img class="imagen" src="${imageShow.medium}">`; 
-                    }                                
-                    htmlCode += `<p class="seriesname"> ${favoriteSerie.show.name}</p><button class="js-reset">reset</button>`;   
-                    htmlCode += '</buton>';    
-                    htmlCode += '</li>';
-                }
-            //}
-            htmlCode += `</ul>`;    
+    function paintFavorites() {
+        let htmlCode = '';
+                htmlCode += '<h2 class="h2">Mis series favoritas</h2>';
+                htmlCode += `<ul class = listClass js-listFavorites>`;
+                    for (const favoriteSerie of favoritesSeries) {
+                        htmlCode += '<li class="changes">';
+                        htmlCode += `<button class="checked js-clicked" id="${favoriteSerie.id}">`;
+                        const showElement = favoriteSerie.show;
+                        const imageShow = showElement.image;
+                        if (imageShow === null){
+                            htmlCode += `<img class="imagen" src="https://via.placeholder.com/210x295/ffffff/666666/?
+                        text=TV">`;
+                        } else {
+                            htmlCode += `<img class="imagen" src="${imageShow.medium}">`; 
+                        }                                
+                        htmlCode += `<p class="seriesname"> ${favoriteSerie.show.name}</p><button class="js-reset">reset</button>`;   
+                        htmlCode += '</buton>';    
+                        htmlCode += '</li>';
+                    }
+                htmlCode += `</ul>`;    
 
-            favoriteElement.innerHTML = htmlCode;
-            //isFavoriteSerie();
-}
+                favoriteElement.innerHTML = htmlCode;
+    }
 
 // resaltando favoritas
 
-function isFavoriteSerie(serieId) {
-    const favoriteFound = favoritesSeries.find(favoriteSerie =>{
-        return favoriteSerie.show.id === serieId;
-    });
-    console.log (favoriteFound);
-    if (favoriteFound === undefined) {
-        return false;
-    }else{
-        return true;
+    function isFavoriteSerie(serieId) {
+        const favoriteFound = favoritesSeries.find(favoriteSerie =>{
+            return favoriteSerie.show.id === serieId;
+        });
+        console.log (favoriteFound);
+        if (favoriteFound === undefined) {
+            return false;
+        }else{
+            return true;
+        }
     }
-}
  
  //local storage
 
- function setInLocalStorage() {
-     const stringSeries = JSON.stringify(favoritesSeries);
-    localStorage.setItem ('searchvalue', stringSeries);
-  };
+    function setInLocalStorage() {
+        const stringSeries = JSON.stringify(favoritesSeries);
+        localStorage.setItem ('searchvalue', stringSeries);
+    };
 
-  function getFromLocalStorage() {
-     const localStorageSeries= localStorage.getItem ('searchvalue'); 
-     if (localStorageSeries === null){
-         callToApi ('friends');
-         searchElement.value = 'friends';
-     } else {
-         const arraySeries = JSON.parse(localStorageSeries);
-         favoritesSeries = arraySeries;
-         paintFavorites();
-    }
-  };
-/*
- function setInLocalStorage(searchSeries) {
-   localStorage.setItem ('searchvalue', searchSeries);
- };
-
- function getFromLocalStorage() {
-    const searchText= localStorage.getItem ('searchvalue'); 
-    if (searchText === null){
-        callToApi ('friends');
-        searchElement.value = 'friends';
-    } else {
-        callToApi(searchText);
-        searchElement.value = searchText;
-    }
- };*/
+    function getFromLocalStorage() {
+        const localStorageSeries= localStorage.getItem ('searchvalue'); 
+        if (localStorageSeries === null){
+        } else {
+            const arraySeries = JSON.parse(localStorageSeries);
+            favoritesSeries = arraySeries;
+            paintFavorites();
+        }
+    };
 
  //reset
  function handleResetFavorites() {
