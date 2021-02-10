@@ -32,15 +32,17 @@ function paintSeries(characteres) {
                 const showElement = [elements.show];       
                 for (let itemsShow of showElement) {
                     let borderColor = "";
-                    debugger;
+                    let seriesname = "";
                     if (isFavoriteSerie(itemsShow.id)){
-                        borderColor = "color";
+                        borderColor = "background";
+                        seriesname = "color";
                     } else {
                         borderColor = "";
+                        seriesname = "";
                     }
                     console.log (borderColor);
-                    htmlCode += '<li class="">';
-                    htmlCode += `<button class="checked js-clicked ${borderColor}" id="${itemsShow.id}">`;
+                    htmlCode += `<li class="">`;
+                    htmlCode += `<button class="checked js-clicked ${borderColor} " id="${itemsShow.id}">`;
                     const imageShow = itemsShow.image;
                     if (imageShow === null){
                         htmlCode += `<img class="imagen" src="https://via.placeholder.com/210x295/ffffff/666666/?
@@ -48,7 +50,7 @@ function paintSeries(characteres) {
                         } else {
                             htmlCode += `<img class="imagen" src="${imageShow.medium}">`;
                         }                                
-                    htmlCode += `<p class="seriesname"> ${itemsShow.name}</p>`;   
+                    htmlCode += `<p class="${seriesname}"> ${itemsShow.name}</p>`;   
                     htmlCode += '</buton>';    
                     htmlCode += '</li>';
                 }
@@ -107,7 +109,7 @@ function paintFavorites() {
                 const elements = favoritesSeries[index]; */                   
                 for (const favoriteSerie of favoritesSeries) {
                     //console.log (favoriteSerie); 
-                    htmlCode += '<li class="">';
+                    htmlCode += '<li class="changes">';
                     htmlCode += `<button class="checked js-clicked" id="${favoriteSerie.id}">`;
                     const showElement = favoriteSerie.show;
                     //console.log(showElement);

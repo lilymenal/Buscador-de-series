@@ -69,6 +69,10 @@
   object-fit: cover;
   object-position: center center;
 }
+.background {
+  background-color: black;
+}
+
 .color {
-  border-color: deeppink;
+  color: blanchedalmond;
 }
