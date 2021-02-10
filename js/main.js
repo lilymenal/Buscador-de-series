@@ -5,8 +5,6 @@ const seriesElement = document.querySelector('.js-series');
 const buttonElement = document.querySelector('.js-button');
 const searchElement = document.querySelector('.js-text');
 const favoriteElement = document.querySelector('.js-favorites');
-const resetFavoriteElement = document.querySelector('.js-hidden');
-const listenResetElement = document.querySelector('.js-reset');
 
 let seriesShow = [];
 let favoritesSeries = [];
@@ -89,7 +87,6 @@ let favoritesSeries = [];
             favoritesSeries.splice (isFavoriteSerie, 1);
         }       
         paintFavorites();
-        //handleResetFavorites();
         paintSeries(seriesShow);
         setInLocalStorage();
     }
@@ -112,13 +109,20 @@ let favoritesSeries = [];
                         } else {
                             htmlCode += `<img class="imagen" src="${imageShow.medium}">`; 
                         }                                
-                        htmlCode += `<p class="seriesname"> ${favoriteSerie.show.name}</p><button class="js-reset">X</button>`;   
+                        htmlCode += `<p class="seriesname"> ${favoriteSerie.show.name}</p>`;   
                         htmlCode += '</buton>';    
-                        htmlCode += '</li>';
+                        htmlCode += `</li><button id="${favoriteSerie.show.id}" class=" style js-hidden">X</button>`;
                     }
                 htmlCode += `</ul><button class="js-reset">Borra tus favoritos</button>`;    
 
                 favoriteElement.innerHTML = htmlCode;
+
+                const resetFavoriteElement = document.querySelectorAll('.js-hidden');
+                for (const buttonFavoriteElement of resetFavoriteElement) {
+                    buttonFavoriteElement.addEventListener('click', handleRemoveFavorites);
+                }
+                const listenResetElement = document.querySelector('.js-reset');
+                listenResetElement.addEventListener('click', handleResetFavorites);
     }
 
 // resaltando favoritas
@@ -153,12 +157,24 @@ let favoritesSeries = [];
     };
 
  //reset
-/* function handleResetFavorites() {
-    //listenResetElement.innerHTML= '';
-console.log ('borra favoritas...')
-    
+ function handleResetFavorites() {
+    favoritesSeries = [];
+    paintFavorites();
+    setInLocalStorage();
+    paintSeries(seriesShow);
  }
- resetFavoriteElement.addEventListener('click', handleResetFavorites);*/
+ 
+    function handleRemoveFavorites(ev) {
+        let listen = parseInt(ev.currentTarget.id);   
+        const isFavoriteSerie = favoritesSeries.findIndex (fav => fav.show.id === listen);
+        if (isFavoriteSerie !== -1){
+            favoritesSeries.splice (isFavoriteSerie, 1);
+        }
+        paintFavorites();
+        paintSeries(seriesShow);
+        setInLocalStorage();
+    }
+
 
    
  // start app: search by friends

@@ -60,6 +60,10 @@
   object-fit: cover;
   object-position: center center;
 }
+.style {
+  width: 10%;
+  height: 10%;
+}
 
 .imagen {
   width: 80%;
