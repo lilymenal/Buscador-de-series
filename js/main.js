@@ -5,6 +5,7 @@ const seriesElement = document.querySelector('.js-series');
 const buttonElement = document.querySelector('.js-button');
 const searchElement = document.querySelector('.js-text');
 const favoriteElement = document.querySelector('.js-favorites');
+const buttonConsole = document.querySelector ('.js-console');
 
 let seriesShow = [];
 let favoritesSeries = [];
@@ -47,7 +48,10 @@ let favoritesSeries = [];
                             } else {
                                 htmlCode += `<img class="imagen" src="${imageShow.medium}">`;
                             }                                
-                        htmlCode += `<p class="${seriesname}"> ${itemsShow.name}</p>`;   
+                        htmlCode += `<p class="${seriesname}"> ${itemsShow.name}</p>`;
+                        const scheduleShow = itemsShow.schedule;
+                        console.log (scheduleShow.days);
+                        htmlCode += `<p class="${seriesname}"> ${scheduleShow.days}</p>`;   
                         htmlCode += '</buton>';    
                         htmlCode += '</li>';
                     }
@@ -57,6 +61,15 @@ let favoritesSeries = [];
                 
                 handleSeries();
     }
+
+    // console series
+
+    function handleConsole() {
+        for (const serieShow of seriesShow) {
+            console.log (serieShow.show.name);
+        }
+    }
+    buttonConsole.addEventListener('click',handleConsole);
 
  //search series
 
