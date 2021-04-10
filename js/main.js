@@ -12,7 +12,7 @@ let favoritesSeries = [];
 // api
 
     function callToApi(searchValue) {
-        fetch('http://api.tvmaze.com/search/shows?q='+ searchValue)
+        fetch('//api.tvmaze.com/search/shows?q='+ searchValue)
         .then(response => response.json())
         .then(data => {
             seriesShow = data;
